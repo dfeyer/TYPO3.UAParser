@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://typo3.org/ns/2008/flow3/package" version="1.0">
+	<key>TYPO3.UAParser</key>
+	<title>TYPO3 Flow package based on the PHP UA Parser</title>
+	<description>This package can be use to acces the User Agent in a secure and clean way.</description>
+	<version>0.2.4</version>
+    <parties>
+        <person role="LeadDeveloper">
+            <name>Dominique Feyer</name>
+            <email>dfeyer@ttree.ch</email>
+            <website>ttree.ch</website>
+            <organisation>ttree ltd</organisation>
+            <repositoryUserName>dfeyer</repositoryUserName>
+        </person>
+    </parties>
+</package>
