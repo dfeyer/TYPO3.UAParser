@@ -13,4 +13,10 @@
             <repositoryUserName>dfeyer</repositoryUserName>
         </person>
     </parties>
+    <constraints>
+        <depends>
+            <system minVersion="5.3.2" type="PHP"/>
+            <system minVersion="1.2.0" type="PHPExtension">json</system>
+        </depends>
+    </constraints>
 </package>
