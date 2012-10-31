@@ -18,7 +18,7 @@ namespace TYPO3\UAParser;
  *
  */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author Dave Olsen
  * @author Dominique Feyer <dfeyer@ttree.ch>
- * @FLOW3\Scope("singleton")
+ * @Flow\Scope("singleton")
  */
 class Parser {
 
