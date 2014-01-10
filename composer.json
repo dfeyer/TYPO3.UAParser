@@ -5,7 +5,8 @@
     "version": "1.4.5",
     "license": ["MIT"],
     "require": {
-        "typo3\/flow": "*"
+        "typo3/flow": "*",
+		"tobie/ua-parser": "0.3.*"
     },
     "autoload": {
         "psr-0": {
