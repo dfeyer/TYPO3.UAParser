@@ -2,7 +2,6 @@
     "name": "typo3/uaparser",
     "type": "typo3-flow-package",
     "description": "This package can be use to acces the User Agent in a secure and clean way.",
-    "version": "1.4.5",
     "license": ["MIT"],
     "require": {
         "typo3/flow": "*",
