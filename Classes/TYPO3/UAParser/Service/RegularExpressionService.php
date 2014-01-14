@@ -35,7 +35,16 @@ class RegularExpressionService {
 	protected $cache;
 
 	/**
-	 * @return mixed Potential return value from the regular expressions cache
+	 * @param null $resourceUri
+	 */
+	public function __construct($resourceUri = NULL) {
+		if ($resourceUri !== NULL) {
+			$this->resourceUri = $resourceUri;
+		}
+	}
+
+	/**
+	 * @return array Potential return value from the regular expressions cache
 	 */
 	public function load() {
 		if (!$this->cache->has(self::CACHE_KEY)) {
@@ -46,12 +55,12 @@ class RegularExpressionService {
 	}
 
 	/**
-	 * @param string $resourceUri
+	 * @return boolean
 	 * @throws \TYPO3\UAParser\Exception
 	 */
-	public function update($resourceUri = NULL) {
+	public function update() {
 		$level = error_reporting(0);
-		$yamlContent = file_get_contents($resourceUri ?: $this->resourceUri);
+		$yamlContent = file_get_contents($this->resourceUri);
 		error_reporting($level);
 
 		if ($yamlContent === false) {
@@ -63,6 +72,8 @@ class RegularExpressionService {
 		} catch (ParseException $exception) {
 			throw new Exception('Unable to parse YAML content', 1389688349);
 		}
+
+		return TRUE;
 	}
 
 	/**

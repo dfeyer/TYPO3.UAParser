@@ -1,15 +1,7 @@
 <?php
 namespace TYPO3\UAParser;
 
-/*                                                                        *
- * This script belongs to the TYPO3 Flow package "TYPO3.UAParser".        *
- *                                                                        *
- * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU General Public License, either version 3 of the   *
- * License, or (at your option) any later version.                        *
- *                                                                        *
- * The TYPO3 project - inspiring people to share!                         *
- *                                                                        */
+
 
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\Flow\Annotations as Flow;
@@ -35,10 +27,8 @@ class Parser extends \UAParser\Parser {
 
 	/**
 	 * Override the default constructor has we use the caching framework to store the Regexp file
-	 *
-	 * @param mixed $customRegexesFile
 	 */
-	public function __construct($customRegexesFile = NULL) {
+	public function __construct() {
 
 	}
 
@@ -50,6 +40,7 @@ class Parser extends \UAParser\Parser {
 			return;
 		}
 		$this->regexes = $this->regularExpressionService->load();
+		$this->initialized = TRUE;
 	}
 
 	/**
