@@ -1,4 +1,4 @@
-TYPO3\UAParser\Parser:
+TYPO3\UAParser\Service\RegularExpressionService:
   properties:
     cache:
       object:

@@ -13,6 +13,8 @@ namespace TYPO3\UAParser;
 
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\UAParser\Service\RegularExpressionService;
+use UAParser\Result\Client;
 
 /**
  * @author Dominique Feyer <dfeyer@ttree.ch>
@@ -20,12 +22,16 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class Parser extends \UAParser\Parser {
 
-	private $resourceUri = 'https://raw.github.com/tobie/ua-parser/master/regexes.yaml';
+	/**
+	 * @Flow\Inject
+	 * @var RegularExpressionService
+	 */
+	protected $regularExpressionService;
 
 	/**
-	 * @var \TYPO3\Flow\Cache\Frontend\PhpFrontend
+	 * @var boolean
 	 */
-	protected $cache;
+	protected $initialized = FALSE;
 
 	/**
 	 * Override the default constructor has we use the caching framework to store the Regexp file
@@ -39,27 +45,25 @@ class Parser extends \UAParser\Parser {
 	/**
 	 * Initialize the object
 	 */
-	public function initializeObject() {
-		if (!$this->cache->has('regexp')) {
-			$this->cache->set('regexp', $this->convertRegexpFile());
+	public function initialize() {
+		if ($this->initialized === TRUE) {
+			return;
 		}
-		$this->regexes = $this->cache->requireOnce('regexp');
+		$this->regexes = $this->regularExpressionService->load();
 	}
 
 	/**
-	 * @return string
-	 * @throws Exception
+	 * {@inheritdoc}
+	 *
+	 * @param string $userAgent
+	 * @param array $jsParseBits
+	 * @return Client
 	 */
-	protected function convertRegexpFile() {
-		$level = error_reporting(0);
-		$result = file_get_contents($this->resourceUri);
-		error_reporting($level);
-
-		if ($result === false) {
-			throw new \TYPO3\UAParser\Exception('Unable to download remote file: ' . $this->resourceUri, 1389359166);
+	public function parse($userAgent, array $jsParseBits = array()) {
+		if ($this->initialized === FALSE) {
+			$this->initialize();
 		}
-
-		return 'return ' . var_export(Yaml::parse($result), true) . ';';
+		return parent::parse($userAgent, $jsParseBits);
 	}
 }
 
