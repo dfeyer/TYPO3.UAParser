@@ -12,7 +12,7 @@ use UAParser\Result\Client;
  * @author Dominique Feyer <dfeyer@ttree.ch>
  * @Flow\Scope("singleton")
  */
-class Parser extends \UAParser\Parser {
+class Parser {
 
 	/**
 	 * @Flow\Inject
@@ -26,11 +26,9 @@ class Parser extends \UAParser\Parser {
 	protected $initialized = FALSE;
 
 	/**
-	 * Override the default constructor has we use the caching framework to store the Regexp file
+	 * @var \UAParser\Parser
 	 */
-	public function __construct() {
-
-	}
+	protected $userAgentParser;
 
 	/**
 	 * Initialize the object
@@ -39,7 +37,7 @@ class Parser extends \UAParser\Parser {
 		if ($this->initialized === TRUE) {
 			return;
 		}
-		$this->regexes = $this->regularExpressionService->load();
+		$this->userAgentParser = new \UAParser\Parser($this->regularExpressionService->load());
 		$this->initialized = TRUE;
 	}
 
@@ -54,7 +52,7 @@ class Parser extends \UAParser\Parser {
 		if ($this->initialized === FALSE) {
 			$this->initialize();
 		}
-		return parent::parse($userAgent, $jsParseBits);
+		return $this->userAgentParser->parse($userAgent, $jsParseBits);
 	}
 }
 
